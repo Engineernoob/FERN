@@ -1,0 +1,61 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.rbc
+*.so
+*.egg-info/
+.eggs/
+*.log
+*.pot
+*.pyc
+*.coverage
+.coverage.*
+.cache/
+pytest_cache/
+.tox/
+.mypy_cache/
+.dmypy.json
+.pytest_cache/
+*.sqlite3
+
+# --- Virtual environments ---
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# --- Build / dist ---
+build/
+dist/
+*.egg
+*.manifest
+*.spec
+
+# --- Node / Frontend ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.next/
+.out/
+.cache/
+coverage/
+*.tsbuildinfo
+
+# --- IDEs / Editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+*.iml
+
+# --- FERN runtime ---
+.fern/
+fern.plan.json
+

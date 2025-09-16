@@ -1,0 +1,10 @@
+typer[all]
+rich
+duckdb
+GitPython
+PyGithub
+httpx
+jinja2
+pytest
+ruff
+mypy
