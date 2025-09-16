@@ -8,6 +8,8 @@ from fern.tasks.review import review_repo
 from fern.tools.github import ensure_remote_repo, open_pr
 from fern.tools.git import git_init, git_commit_all, git_push
 from fern.core.state import load_history, compute_stats
+from fern.tools.banner import show_banner
+from fern.agents.coordinator import run_multi_agent
 
 
 console = Console()
@@ -17,6 +19,9 @@ app = typer.Typer(help="FERN: Full-stack Engineering Reinforcement Navigator")
 def chat(path: str = "."):
     repo = Path(path)
     repo.mkdir(parents=True, exist_ok=True)
+
+    show_banner()
+    
     console.print("[bold green]FERN:[/] 🌱 You can talk to me while I’m building your project.")
 
     history = []
@@ -34,6 +39,13 @@ def chat(path: str = "."):
         except KeyboardInterrupt:
             console.print("\n[yellow]FERN:[/] Stopping session.")
             break
+
+@app.command()
+def multi(goal: str, path: str =".", rounds: int = 3):
+    repo = Path(path)
+    repo.mkdir(parents=True, exist_ok=True)
+    result = run_multi_agent(repo, goal, max_rounds=rounds)
+    console.print(f"[magenta]FERN result:[/]\n{json.dumps(result, indent=2)}")
 
 @app.command()
 def scaffold(name: str, template: str = "py_lib", path: str = "."):
@@ -111,6 +123,7 @@ def report(path: str = "."):
     console.print(f"  Time: {last['ts']}")
 
 def main():
+    show_banner()
     print("FERN 🌱 is ready to help.")
 
 if __name__ == "__main__":
