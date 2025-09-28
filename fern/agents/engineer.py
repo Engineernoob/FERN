@@ -1,7 +1,7 @@
 import requests, subprocess
 from pathlib import Path
 
-# In Dev Mode: localhost ports (docker-compose.dev.yml)
+# MCP endpoints (dev mode ports)
 OLLAMA_API = "http://localhost:11434/api/chat"
 REPO_MCP = "http://localhost:8001"
 TESTS_MCP = "http://localhost:8002"
@@ -77,5 +77,6 @@ def engineer_loop(repo_url: str):
     print(dep_res)
 
 if __name__ == "__main__":
-    engineer_loop("https://github.com/someuser/somerepo.git")
+    engineer_loop("https://github.com/Engineernooob/somerepo.git")
+
 
