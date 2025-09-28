@@ -1,10 +1,12 @@
-from mcp.server import Server
+from fastapi import FastAPI
 
-server = Server("fern-deploy")
+app = FastAPI()
 
-@server.endpoint("deploy_app")
+@app.post("/deploy_app")
 def deploy_app(env: str = "staging"):
     return {"success": True, "url": f"https://{env}.fern-app.local"}
 
-if __name__ == "__main__":
-    server.run(host="0.0.0.0", port=8000)
+@app.post("/rollback")
+def rollback(env: str = "staging"):
+    return {"success": True}
+

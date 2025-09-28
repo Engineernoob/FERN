@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . /app
 
 # Install dependencies
-RUN pip install mcp pytest
+RUN pip install fastapi uvicorn pytest
 
 EXPOSE 8000
 CMD ["python", "server.py"]
