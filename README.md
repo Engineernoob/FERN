@@ -8,89 +8,108 @@
  \_\/\\\_\*\***\_\_**\*\***\/\\\\\\\\\\\\\\\_\/\\\_**\_**\//\\\_\/\\\_**\//\\\\\_
 \_\///\*\***\_\_\_\_**\*\***\///////////////**\///**\_\_\***\*\///**\///\_\_\_\*\*\/////\_\_
 
-🌱 **FERN – Full-stack Engineering Reinforcement Navigator**  
-_An autonomous, reinforcement-learning powered coding agent that plans, builds, reviews, and improves software projects while you sleep._
+🌱 FERN – Full-stack Engineering Reinforcement Navigator
 
----
+An autonomous, MCP-powered, reinforcement-learning coding agent that plans, builds, reviews, and improves software projects while you sleep.
 
-## ✨ Key Features
+✨ Key Features
 
-- **Chat-Driven Development** – talk to FERN in your terminal as it builds your project.
-- **Autonomous Planning** – breaks high-level goals into structured tasks.
-- **Self-Healing** – retries failed builds and applies different fix strategies.
-- **Reinforcement Learning** – logs every attempt and improves over time.
-- **GitHub Integration** – commits, branches, pushes, and opens PRs automatically.
-- **Status & Reports** – track performance, test pass rates, and reward curves.
+Chat-Driven Development – interact with FERN in your terminal or via APIs.
 
----
+Autonomous Planning – decomposes high-level goals into structured tasks.
 
-## 🛠️ Tech Stack
+Self-Healing – retries failed builds and applies alternate fix strategies.
 
-- Python 3.12+
-- Ollama (`qwen2.5-coder:7b`)
-- GitPython, Typer, Rich
-- DuckDB (RL memory)
-- Ruff, Pytest, Mypy
+Reinforcement Learning – logs every attempt and improves with memory (DuckDB + vector DB).
 
----
+MCP Architecture – modular servers for repo management, testing, and deployment.
 
-## 🚀 Getting Started
+GitHub Integration – commits, branches, pushes, and opens PRs automatically.
 
-### 1. Clone & Install
+Status & Reports – track performance, test pass rates, and reward curves.
 
-```bash
+🛠️ Tech Stack
+
+Core: Python 3.12+
+
+LLMs: Ollama (qwen2.5-coder:7b/14b, phi3, codellama)
+
+Agents: Typer, Rich (CLI), Requests
+
+MCP Servers:
+
+fern-repo → git clone/commit/push/PR
+
+fern-tests → pytest & e2e test harness
+
+fern-deploy → CI/CD hooks & rollbacks
+
+RL Memory: DuckDB + (future) Qdrant for long-term memory
+
+Tooling: Ruff, Pytest, Mypy
+
+🚀 Getting Started
+1. Clone & Install (Dev Mode)
 git clone https://github.com/yourusername/fern.git
-cd fern
+cd fern-v2
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-```
 
-2. Run Ollama
-   ollama serve
-   ollama pull qwen2.5-coder:7b
+2. Run Dev Mode (local agents + Docker MCP)
+docker compose -f docker-compose.dev.yml up -d
+python agents/engineer.py
 
-3. Start Chatting
-   python -m fern.cli chat
 
-Example session:
+Ollama runs in Docker (http://localhost:11434)
 
-FERN 🌱 You can talk to me while I’m building your project.
-You: scaffold a FastAPI backend with authentication
-FERN: Planning...
-FERN: Writing app/main.py
-FERN: Running tests...
-FERN: Fixed lint errors
-FERN: ✅ Finished goal (reward=0.87)
+MCP Servers (fern-repo, fern-tests, fern-deploy) run in Docker
 
-📊 Tracking Progress
+Agent runs on your host → hot reload & fast iteration
 
-Last 5 runs:
+3. Run Prod Mode (fully containerized)
+docker compose -f docker-compose.prod.yml up --build
 
-python -m fern.cli status
 
-Full report:
+All services run in Docker (agents + MCP servers + Ollama)
 
-python -m fern.cli report
+Fern becomes portable & demo-ready
+
+Great for open-source contributors or SaaS deployment
 
 🌿 Roadmap
 
-Multi-agent mode (Planner, Builder, Reviewer)
+ MCP servers (fern-repo, fern-tests, fern-deploy)
 
-Persistent memory of past fixes & goals
+ Dual run modes (Dev + Prod)
 
-Auto-generated GitHub PRs with test reports
+ Multi-agent mode (Planner, Builder, Reviewer, DevOps)
 
-Web dashboard with live logs & reward graphs
+ Persistent memory of past fixes & goals (DuckDB → Qdrant)
 
-Support for multiple LLM providers
+ Auto-generated GitHub PRs with annotated test reports
+
+ Web dashboard with live logs & reward graphs
+
+ Support for multiple LLM providers (Ollama, OpenAI, Anthropic)
+
+📊 Tracking Progress
+python -m fern.cli status   # last 5 runs
+python -m fern.cli report   # full RL report
+
+
+FERN 🌱 Example log:
+
+Planning...
+Writing app/main.py
+Running tests...
+Fixed lint errors
+✅ Finished goal (reward=0.87)
 
 🤝 Contributing
 
-FERN is experimental. Contributions, feedback, and ideas are welcome.
+FERN is experimental. Contributions, bug reports, and feedback are welcome.
 
 📜 License
 
 MIT License © 2025 Taahirah Denmark
-
----

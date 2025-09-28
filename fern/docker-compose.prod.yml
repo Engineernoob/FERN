@@ -1,0 +1,29 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports: ["11434:11434"]
+    volumes: ["ollama-data:/root/.ollama"]
+
+  fern-repo:
+    build: ./servers/fern-repo
+    volumes: ["./repos:/repos"]
+
+  fern-tests:
+    build: ./servers/fern-tests
+    volumes: ["./repos:/repos"]
+
+  fern-deploy:
+    build: ./servers/fern-deploy
+    volumes: ["./repos:/repos"]
+
+  fern-agent:
+    build: ./agents
+    depends_on: [ollama, fern-repo, fern-tests, fern-deploy]
+    environment:
+      - OLLAMA_API=http://ollama:11434
+      - REPO_MCP=http://fern-repo:8000
+      - TESTS_MCP=http://fern-tests:8000
+      - DEPLOY_MCP=http://fern-deploy:8000
+
+volumes:
+  ollama-data:

@@ -1,0 +1,23 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports: ["11434:11434"]
+    volumes: ["ollama-data:/root/.ollama"]
+
+  fern-repo:
+    build: ./servers/fern-repo
+    ports: ["8001:8000"]
+    volumes: ["./repos:/repos"]
+
+  fern-tests:
+    build: ./servers/fern-tests
+    ports: ["8002:8000"]
+    volumes: ["./repos:/repos"]
+
+  fern-deploy:
+    build: ./servers/fern-deploy
+    ports: ["8003:8000"]
+    volumes: ["./repos:/repos"]
+
+volumes:
+  ollama-data:
